@@ -353,6 +353,9 @@ local function Session()
 
     this.update = function(playerList)
         local questNumber = _getQuestNumber()
+
+        -- TODO: プレイヤーが入れ替わった時を考慮する
+
         if this.questNumber ~= questNumber then
             reset()
         end
@@ -528,7 +531,7 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
 
     if showHPTPText == true then
         local player = _Session.getPlayerByAddress(address)
-        lib_helpers.Text(true, "HP: " .. barTextFormat .. "  deaths: %d", hp, mhp, player.getDeathCount())
+        lib_helpers.Text(true, "HP: " .. barTextFormat, hp, mhp)
     end
 
     if HPbar == true then
@@ -560,6 +563,9 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
             lib_helpers.Text(true, "%-4s: %s", "Inv.", os.date("!%M:%S", invuln.time))
         end
     end
+
+    local player = _Session.getPlayerByAddress(address)
+    lib_helpers.Text(true, "deaths: %d", player.getDeathCount())
 end
 
 local function present()
