@@ -9,6 +9,8 @@ local optionsFileName = "addons/Player Reader/options.lua"
 local firstPresent = true
 local ConfigurationWindow
 
+local _Session
+
 if optionsLoaded then
     -- If options loaded, make sure we have all those we need
     if options == nil or type(options) ~= "table" then
@@ -292,6 +294,86 @@ local function SaveOptions(options)
     end
 end
 
+-- copy from killCounter
+local _getQuestNumber = function()
+    local questPtr = pso.read_u32(0xA95AA8)
+
+    if questPtr == 0 then
+        return 0
+    end
+
+    local questData = pso.read_u32(questPtr + 0x19C)
+
+    if questData == 0 then
+        return 0
+    end
+
+    return pso.read_u32(questData + 0x10)
+end
+
+
+local function Player()
+    local this = {
+        address = nil,
+        _lastHP = -1,
+        _deathCount = 0,
+    }
+
+    this.update = function(address)
+        if this.address ~= address then
+            this.address = address
+            this._deathCount = 0
+            this._lastHP = -1
+        end
+        local hp = lib_characters.GetPlayerHP(address)
+        if (this._lastHP > 0 and hp == 0) then
+            this._deathCount = this._deathCount + 1
+        end
+        this._lastHP = hp
+    end
+
+    this.getDeathCount = function()
+        return this._deathCount
+    end
+
+    return this
+end
+
+local function Session()
+    local this = {
+        players = {},
+        questNumber = -1
+    }
+
+    local reset = function()
+        for i = 1, 4, 1 do
+            this.players[i] = Player()
+        end
+    end
+
+    this.update = function(playerList)
+        local questNumber = _getQuestNumber()
+        if this.questNumber ~= questNumber then
+            reset()
+        end
+        this.questNumber = questNumber
+
+        for i, player in ipairs(playerList) do
+            this.players[i].update(player.address)
+        end
+    end
+
+    this.getPlayerByAddress = function(address)
+        for _, player in ipairs(this.players) do
+            if address == player.address then
+                return player
+            end
+        end
+    end
+
+    return this
+end
+
 local function PresentPlayers()
     local playerList = lib_characters.GetPlayerList()
     local playerListCount = table.getn(playerList)
@@ -475,6 +557,9 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
             lib_helpers.Text(true, "%-4s: %s", "Inv.", os.date("!%M:%S", invuln.time))
         end
     end
+
+    local player = _Session.getPlayerByAddress(address)
+    lib_helpers.Text(true, "deaths: %d", player.getDeathCount())
 end
 
 local function present()
@@ -495,6 +580,8 @@ local function present()
     if options.enable == false then
         return
     end
+
+    _Session.update(lib_characters.GetPlayerList())
 
     if (options.allPlayersEnableWindow == true)
         and (options.allHideWhenMenu == false or lib_menu.IsMenuOpen() == false)
@@ -663,6 +750,8 @@ end
 
 local function init()
     ConfigurationWindow = cfg.ConfigurationWindow(options)
+
+    _Session = Session()
 
     local function mainMenuButtonHandler()
         ConfigurationWindow.open = not ConfigurationWindow.open
