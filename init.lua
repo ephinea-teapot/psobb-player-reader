@@ -358,8 +358,8 @@ local function Session()
         end
         this.questNumber = questNumber
 
-        if questNumber ~= 0 then
-            for i, player in ipairs(playerList) do
+        for i, player in ipairs(playerList) do
+            if i <= 4 then
                 this.players[i].update(player.address)
             end
         end
