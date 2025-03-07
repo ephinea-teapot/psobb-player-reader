@@ -527,7 +527,8 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
     end
 
     if showHPTPText == true then
-        lib_helpers.Text(true, "HP: " .. barTextFormat, hp, mhp)
+        local player = _Session.getPlayerByAddress(address)
+        lib_helpers.Text(true, "HP: " .. barTextFormat .. "  deaths: %d", hp, mhp, player.getDeathCount())
     end
 
     if HPbar == true then
@@ -559,9 +560,6 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
             lib_helpers.Text(true, "%-4s: %s", "Inv.", os.date("!%M:%S", invuln.time))
         end
     end
-
-    local player = _Session.getPlayerByAddress(address)
-    lib_helpers.Text(true, "deaths: %d", player.getDeathCount())
 end
 
 local function present()
