@@ -568,7 +568,7 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
     end
 
     local player = _Session.getPlayerByAddress(address)
-    lib_helpers.Text(true, "deaths: %d", player.getDeathCount())
+    lib_helpers.Text(true, "Death: %d", player.getDeathCount())
 end
 
 local function present()
