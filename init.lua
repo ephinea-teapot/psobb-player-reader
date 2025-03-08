@@ -45,6 +45,7 @@ if optionsLoaded then
     options.singlePlayersEnableWindow    = lib_helpers.NotNilOrDefault(options.singlePlayersEnableWindow, true)
     options.singlePlayersShowBarText     = lib_helpers.NotNilOrDefault(options.singlePlayersShowBarText, true)
     options.singlePlayersShowBarMaxValue = lib_helpers.NotNilOrDefault(options.singlePlayersShowBarMaxValue, true)
+    options.singlePlayersBalancingHorizontalPosition = lib_helpers.NotNilOrDefault(options.singlePlayersBalancingHorizontalPosition, false)
 
     if options.players == nil or type(options.players) ~= "table" then
         options.players = {}
@@ -141,6 +142,7 @@ else
         singlePlayersEnableWindow = true,
         singlePlayersShowBarText = false,
         singlePlayersShowBarMaxValue = true,
+        singlePlayersBalancingHorizontalPosition = false,
     }
 
     options.players = {}
@@ -228,6 +230,7 @@ local function SaveOptions(options)
         io.write(string.format("    singlePlayersEnableWindow = %s,\n", tostring(options.singlePlayersEnableWindow)))
         io.write(string.format("    singlePlayersShowBarText = %s,\n", tostring(options.singlePlayersShowBarText)))
         io.write(string.format("    singlePlayersShowBarMaxValue = %s,\n", tostring(options.singlePlayersShowBarMaxValue)))
+        io.write(string.format("    singlePlayersBalancingHorizontalPosition = %s,\n", tostring(options.singlePlayersBalancingHorizontalPosition)))
         io.write("\n")
 
         io.write(string.format("    players = {\n"))
@@ -666,8 +669,9 @@ local function present()
                             if options.players[i].AlwaysAutoResize == "AlwaysAutoResize" then
                                 if options.players[i].Anchor == 3 or options.players[i].Anchor == 6 or options.players[i].Anchor == 9 then
                                     options.players[i].H = imgui.GetWindowHeight()
+                                    local x = options.singlePlayersBalancingHorizontalPosition and options.players[i].W * (i - 3) * 1.25 + 75 or options.players[i].X
                                     local ps = lib_helpers.GetPosBySizeAndAnchor(
-                                        options.players[i].X,
+                                        x,
                                         options.players[i].Y,
                                         options.players[i].W,
                                         options.players[i].H,

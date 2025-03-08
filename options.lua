@@ -27,6 +27,7 @@ return
     singlePlayersEnableWindow = true,
     singlePlayersShowBarText = true,
     singlePlayersShowBarMaxValue = true,
+    singlePlayersBalancingHorizontalPosition = false,
 
     players = {
         {

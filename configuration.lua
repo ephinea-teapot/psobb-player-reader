@@ -176,6 +176,10 @@ local function ConfigurationWindow(configuration)
                 _configuration.singlePlayersShowBarMaxValue = not _configuration.singlePlayersShowBarMaxValue
                 this.changed = true
             end
+            if imgui.Checkbox("Balancing the horizontal position", _configuration.singlePlayersBalancingHorizontalPosition) then
+                _configuration.singlePlayersBalancingHorizontalPosition = not _configuration.singlePlayersBalancingHorizontalPosition
+                this.changed = true
+            end
 
             for i = 1, 4, 1 do
                 local singlePlayerTitle = string.format("Player %d", i)
