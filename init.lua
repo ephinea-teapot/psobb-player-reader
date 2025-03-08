@@ -353,9 +353,6 @@ local function Session()
 
     this.update = function(playerList)
         local questNumber = _getQuestNumber()
-
-        -- TODO: プレイヤーが入れ替わった時を考慮する
-
         if this.questNumber ~= questNumber then
             reset()
         end
