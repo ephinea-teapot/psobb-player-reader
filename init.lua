@@ -326,7 +326,7 @@ local function Player()
             this._lastHP = -1
         end
         local hp = lib_characters.GetPlayerHP(address)
-        if (this._lastHP > 0 and hp == 0) then
+        if (this._lastHP ~= 0 and hp == 0) then
             this._deathCount = this._deathCount + 1
         end
         this._lastHP = hp
@@ -363,6 +363,9 @@ local function Session()
 
         for i, player in ipairs(playerList) do
             if i <= 4 then
+                if this.players[i].address ~= player.address then
+                    this.players[i] = Player()
+                end
                 this.players[i].update(player.address)
             end
         end
