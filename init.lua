@@ -518,6 +518,11 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
         hpColor = 0xFFEAF718
     end
 
+    -- can use DF's EX
+    if (hp / mhp) < 0.125 then
+        hpColor = 0xFFFF0000
+    end
+
     tpColor = 0xFF0088F4
     if (tp / mtp) < 0.2 then
         tpColor = 0xFFF7BB13
