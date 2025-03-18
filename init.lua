@@ -18,34 +18,41 @@ if optionsLoaded then
     end
 
 
-    options.configurationEnableWindow    = lib_helpers.NotNilOrDefault(options.configurationEnableWindow, true)
-    options.enable                       = lib_helpers.NotNilOrDefault(options.enable, true)
+    options.configurationEnableWindow                = lib_helpers.NotNilOrDefault(options.configurationEnableWindow,
+        true)
+    options.enable                                   = lib_helpers.NotNilOrDefault(options.enable, true)
 
-    options.allPlayersEnableWindow       = lib_helpers.NotNilOrDefault(options.allPlayersEnableWindow, true)
-    options.allHideWhenMenu              = lib_helpers.NotNilOrDefault(options.allHideWhenMenu, true)
-    options.allHideWhenSymbolChat        = lib_helpers.NotNilOrDefault(options.allHideWhenSymbolChat, true)
-    options.allHideWhenMenuUnavailable   = lib_helpers.NotNilOrDefault(options.allHideWhenMenuUnavailable, true)
-    options.allPlayersChanged            = lib_helpers.NotNilOrDefault(options.allPlayersChanged, false)
-    options.allPlayersAnchor             = lib_helpers.NotNilOrDefault(options.allPlayersAnchor, 1)
-    options.allPlayersX                  = lib_helpers.NotNilOrDefault(options.allPlayersX, 50)
-    options.allPlayersY                  = lib_helpers.NotNilOrDefault(options.allPlayersY, 50)
-    options.allPlayersW                  = lib_helpers.NotNilOrDefault(options.allPlayersW, 450)
-    options.allPlayersH                  = lib_helpers.NotNilOrDefault(options.allPlayersH, 350)
-    options.allPlayersNoTitleBar         = lib_helpers.NotNilOrDefault(options.allPlayersNoTitleBar, "")
-    options.allPlayersNoResize           = lib_helpers.NotNilOrDefault(options.allPlayersNoResize, "")
-    options.allPlayersNoMove             = lib_helpers.NotNilOrDefault(options.allPlayersNoMove, "")
-    options.allPlayersTransparentWindow  = lib_helpers.NotNilOrDefault(options.allPlayersTransparentWindow, false)
-    options.allPlayersListHorizontal     = lib_helpers.NotNilOrDefault(options.allPlayersListHorizontal, false)
-    options.allPlayersListMaxLength      = lib_helpers.NotNilOrDefault(options.allPlayersListMaxLength, 4)
-    options.allPlayersShowIndex          = lib_helpers.NotNilOrDefault(options.allPlayersShowIndex, false)
-    options.allPlayersShowName           = lib_helpers.NotNilOrDefault(options.allPlayersShowName, false)
-    options.allPlayersShowHpBar          = lib_helpers.NotNilOrDefault(options.allPlayersShowHpBar, false)
-    options.allPlayersShowBuff           = lib_helpers.NotNilOrDefault(options.allPlayersShowBuff, false)
+    options.allPlayersEnableWindow                   = lib_helpers.NotNilOrDefault(options.allPlayersEnableWindow, true)
+    options.allHideWhenMenu                          = lib_helpers.NotNilOrDefault(options.allHideWhenMenu, true)
+    options.allHideWhenSymbolChat                    = lib_helpers.NotNilOrDefault(options.allHideWhenSymbolChat, true)
+    options.allHideWhenMenuUnavailable               = lib_helpers.NotNilOrDefault(options.allHideWhenMenuUnavailable,
+        true)
+    options.allPlayersChanged                        = lib_helpers.NotNilOrDefault(options.allPlayersChanged, false)
+    options.allPlayersAnchor                         = lib_helpers.NotNilOrDefault(options.allPlayersAnchor, 1)
+    options.allPlayersX                              = lib_helpers.NotNilOrDefault(options.allPlayersX, 50)
+    options.allPlayersY                              = lib_helpers.NotNilOrDefault(options.allPlayersY, 50)
+    options.allPlayersW                              = lib_helpers.NotNilOrDefault(options.allPlayersW, 450)
+    options.allPlayersH                              = lib_helpers.NotNilOrDefault(options.allPlayersH, 350)
+    options.allPlayersNoTitleBar                     = lib_helpers.NotNilOrDefault(options.allPlayersNoTitleBar, "")
+    options.allPlayersNoResize                       = lib_helpers.NotNilOrDefault(options.allPlayersNoResize, "")
+    options.allPlayersNoMove                         = lib_helpers.NotNilOrDefault(options.allPlayersNoMove, "")
+    options.allPlayersTransparentWindow              = lib_helpers.NotNilOrDefault(options.allPlayersTransparentWindow,
+        false)
+    options.allPlayersListHorizontal                 = lib_helpers.NotNilOrDefault(options.allPlayersListHorizontal,
+        false)
+    options.allPlayersListMaxLength                  = lib_helpers.NotNilOrDefault(options.allPlayersListMaxLength, 4)
+    options.allPlayersShowIndex                      = lib_helpers.NotNilOrDefault(options.allPlayersShowIndex, false)
+    options.allPlayersShowName                       = lib_helpers.NotNilOrDefault(options.allPlayersShowName, false)
+    options.allPlayersShowHpBar                      = lib_helpers.NotNilOrDefault(options.allPlayersShowHpBar, false)
+    options.allPlayersShowBuff                       = lib_helpers.NotNilOrDefault(options.allPlayersShowBuff, false)
 
-    options.singlePlayersEnableWindow    = lib_helpers.NotNilOrDefault(options.singlePlayersEnableWindow, true)
-    options.singlePlayersShowBarText     = lib_helpers.NotNilOrDefault(options.singlePlayersShowBarText, true)
-    options.singlePlayersShowBarMaxValue = lib_helpers.NotNilOrDefault(options.singlePlayersShowBarMaxValue, true)
-    options.singlePlayersBalancingHorizontalPosition = lib_helpers.NotNilOrDefault(options.singlePlayersBalancingHorizontalPosition, false)
+    options.singlePlayersEnableWindow                = lib_helpers.NotNilOrDefault(options.singlePlayersEnableWindow,
+        true)
+    options.singlePlayersShowBarText                 = lib_helpers.NotNilOrDefault(options.singlePlayersShowBarText, true)
+    options.singlePlayersShowBarMaxValue             = lib_helpers.NotNilOrDefault(options.singlePlayersShowBarMaxValue,
+        true)
+    options.singlePlayersBalancingHorizontalPosition = lib_helpers.NotNilOrDefault(
+        options.singlePlayersBalancingHorizontalPosition, false)
 
     if options.players == nil or type(options.players) ~= "table" then
         options.players = {}
@@ -230,7 +237,8 @@ local function SaveOptions(options)
         io.write(string.format("    singlePlayersEnableWindow = %s,\n", tostring(options.singlePlayersEnableWindow)))
         io.write(string.format("    singlePlayersShowBarText = %s,\n", tostring(options.singlePlayersShowBarText)))
         io.write(string.format("    singlePlayersShowBarMaxValue = %s,\n", tostring(options.singlePlayersShowBarMaxValue)))
-        io.write(string.format("    singlePlayersBalancingHorizontalPosition = %s,\n", tostring(options.singlePlayersBalancingHorizontalPosition)))
+        io.write(string.format("    singlePlayersBalancingHorizontalPosition = %s,\n",
+            tostring(options.singlePlayersBalancingHorizontalPosition)))
         io.write("\n")
 
         io.write(string.format("    players = {\n"))
@@ -490,6 +498,87 @@ local function PresentPlayers()
     end
 end
 
+local function getShiftaDuration(level)
+    local table = {
+        [1] = 40,
+        [2] = 50,
+        [3] = 60,
+        [4] = 70,
+        [5] = 80,
+        [6] = 90,
+        [7] = 100,
+        [8] = 110,
+        [9] = 120,
+        [10] = 130,
+        [11] = 140,
+        [12] = 150,
+        [13] = 160,
+        [14] = 170,
+        [15] = 180,
+        [16] = 190,
+        [17] = 200,
+        [18] = 210,
+        [19] = 220,
+        [20] = 230,
+        [21] = 240,
+        [22] = 250,
+        [23] = 260,
+        [24] = 270,
+        [25] = 280,
+        [26] = 290,
+        [27] = 300,
+        [28] = 310,
+        [29] = 320,
+        [30] = 330,
+        [33] = 360,
+        [41] = 440,
+        [61] = 640,
+        [81] = 840,
+    }
+    return table[level]
+end
+
+
+local function getDebandDuration(level)
+    local table = {
+        [1] = 40,
+        [2] = 50,
+        [3] = 60,
+        [4] = 70,
+        [5] = 80,
+        [6] = 90,
+        [7] = 100,
+        [8] = 110,
+        [9] = 120,
+        [10] = 130,
+        [11] = 140,
+        [12] = 150,
+        [13] = 160,
+        [14] = 170,
+        [15] = 180,
+        [16] = 190,
+        [17] = 200,
+        [18] = 210,
+        [19] = 220,
+        [20] = 230,
+        [21] = 240,
+        [22] = 250,
+        [23] = 260,
+        [24] = 270,
+        [25] = 280,
+        [26] = 290,
+        [27] = 300,
+        [28] = 310,
+        [29] = 320,
+        [30] = 330,
+        [33] = 360,
+        [41] = 440,
+        [61] = 640,
+        [81] = 840
+    }
+    return table[level]
+end
+
 local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue, showHPTPText)
     if address == 0 then
         return
@@ -557,12 +646,20 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
         if atkTech.type == 0 then
             --lib_helpers.Text(true, "")
         else
-            lib_helpers.Text(true, "%s %02i: %s", atkTech.name, atkTech.level, os.date("!%M:%S", atkTech.time))
+            -- lib_helpers.Text(true, "%s %02i: %s", atkTech.name, atkTech.level, os.date("!%M:%S", atkTech.time))
+            local duration = getShiftaDuration(atkTech.level)
+            local current = atkTech.time
+            lib_helpers.Text(true, "S %02i (%s): ", atkTech.level, os.date("!%M:%S", atkTech.time))
+            lib_helpers.imguiProgressBar(true, current / duration, 130, imgui.GetFontSize() * 0.5, 0xFFFF0000, nil)
         end
         if defTech.type == 0 then
             --lib_helpers.Text(true, "")
         else
-            lib_helpers.Text(true, "%s %02i: %s", defTech.name, defTech.level, os.date("!%M:%S", defTech.time))
+            -- lib_helpers.Text(true, "%s %02i: %s", defTech.name, defTech.level, os.date("!%M:%S", defTech.time))
+            local duration = getDebandDuration(defTech.level)
+            local current = defTech.time
+            lib_helpers.Text(true, "D %02i (%s): ", defTech.level, os.date("!%M:%S", defTech.time))
+            lib_helpers.imguiProgressBar(true, current / duration, 130, imgui.GetFontSize() * 0.5, 0xFF0000FF, nil)
         end
     end
 
@@ -674,7 +771,8 @@ local function present()
                             if options.players[i].AlwaysAutoResize == "AlwaysAutoResize" then
                                 if options.players[i].Anchor == 3 or options.players[i].Anchor == 6 or options.players[i].Anchor == 9 then
                                     options.players[i].H = imgui.GetWindowHeight()
-                                    local x = options.singlePlayersBalancingHorizontalPosition and options.players[i].W * (i - 3) * 1.25 + 75 or options.players[i].X
+                                    local x = options.singlePlayersBalancingHorizontalPosition and
+                                        options.players[i].W * (i - 3) * 1.25 + 75 or options.players[i].X
                                     local ps = lib_helpers.GetPosBySizeAndAnchor(
                                         x,
                                         options.players[i].Y,
