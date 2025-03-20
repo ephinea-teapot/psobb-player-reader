@@ -579,6 +579,14 @@ local function getDebandDuration(level)
     return table[level]
 end
 
+local function GetPlayerCoordinates(player)
+    local x = pso.read_f32(player + 0x38)
+    local y = pso.read_f32(player + 0x3C)
+    local z = pso.read_f32(player + 0x40)
+
+    return x, y, z
+end
+
 local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue, showHPTPText)
     if address == 0 then
         return
@@ -671,6 +679,9 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
 
     local player = _Session.getPlayerByAddress(address)
     lib_helpers.Text(true, "Death: %d", player.getDeathCount())
+
+    local x, y, z = GetPlayerCoordinates(address)
+    lib_helpers.TextC(true, 0xFF00FF00, "(%d, %d, %d)", x, y, z)
 end
 
 local function present()
