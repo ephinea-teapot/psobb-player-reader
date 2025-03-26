@@ -5,6 +5,13 @@ local lib_menu = require("solylib.menu")
 local cfg = require("Player Reader.configuration")
 local optionsLoaded, options = pcall(require, "Player Reader.options")
 
+
+
+local origPackagePath = package.path
+package.path = './addons/Player Reader/?.lua;' .. package.path
+local ttf = require("ttf")
+package.path = origPackagePath
+
 local optionsFileName = "addons/Player Reader/options.lua"
 local firstPresent = true
 local ConfigurationWindow
@@ -677,11 +684,13 @@ local function PresentPlayer(address, sd, inv, showName, HPbar, showBarMaxValue,
         end
     end
 
+    local floor = lib_characters.GetPlayerFloor(address)
     local player = _Session.getPlayerByAddress(address)
     lib_helpers.Text(true, "Death: %d", player.getDeathCount())
 
     local x, y, z = GetPlayerCoordinates(address)
-    lib_helpers.TextC(true, 0xFF00FF00, "(%d, %d, %d)", x, y, z)
+    local color = ttf.onTeleporter(floor, x, y, z) and 0xFFFF0000 or 0xFF00FF00
+    lib_helpers.TextC(true, color, "%d (%d, %d, %d)", floor, x, y, z)
 end
 
 local function present()
